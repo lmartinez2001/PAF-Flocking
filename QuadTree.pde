@@ -49,11 +49,10 @@ class Quadtree implements IDrawable {
         float y = this.boundary.y;
         float w = this.boundary.width;
         float h = this.boundary.height;
-        int newCapacity = capacity > 2 ? capacity - 1 : capacity;
-        this.northeast = new Quadtree(new Rectangle (x+w/2 , y-h/2 , w/2 , h/2),newCapacity);
-        this.northwest = new Quadtree(new Rectangle (x-w/2 , y-h/2 , w/2 , h/2),newCapacity);
-        this.southeast = new Quadtree(new Rectangle (x+w/2 , y+h/2 , w/2 , h/2),newCapacity);
-        this.southwest = new Quadtree(new Rectangle (x-w/2 , y+h/2 , w/2 , h/2),newCapacity);
+        this.northeast = new Quadtree(new Rectangle (x+w/2 , y-h/2 , w/2 , h/2),capacity);
+        this.northwest = new Quadtree(new Rectangle (x-w/2 , y-h/2 , w/2 , h/2),capacity);
+        this.southeast = new Quadtree(new Rectangle (x+w/2 , y+h/2 , w/2 , h/2),capacity);
+        this.southwest = new Quadtree(new Rectangle (x-w/2 , y+h/2 , w/2 , h/2),capacity);
         this.divided = true;  
     }
 

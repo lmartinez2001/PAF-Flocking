@@ -8,6 +8,9 @@ Boid[] querriedBoids;
 int boidNumber = 300;
 int obstacleNumber = 5;
 
+boolean showSettings = false;
+boolean simulationActive = false;
+
 
 
 //Grid grid;
@@ -28,7 +31,7 @@ void setup() {
 
     // Ajout des obstacles
     for(int i = 0; i < obstacleNumber; i++) {
-        flock.addObstacle(new Obstacle(random(20, width-15), random(20, height-20), 10));
+        flock.addObstacle(new Obstacle(random(20, width-15), random(20, height-20), floor(obstacleRadiusSlider.getValue())));
     }
     
 }
@@ -37,7 +40,8 @@ void setup() {
 void draw() {
     background(255, 255, 242);
 
-    qtree = new Quadtree (new Rectangle (width/2 , height/2 , width/2 , height/2) , 8); // Recréation de l'arbre
+    if(simulationActive) {
+        qtree = new Quadtree (new Rectangle (width/2 , height/2 , width/2 , height/2) , 5); // Recréation de l'arbre
     
     // Insertion de tous les boids dans l'arbre (n operations)
     for (Boid boid : flock.boids) {
@@ -50,7 +54,7 @@ void draw() {
     for (Boid boid : flock.boids) {
         queryCircle = new Circle(boid.position.x, boid.position.y, 60 * quadTreePerceptionRadiusSlider.getValue());
 
-        if(showQuadTreePerceptionCheckBox.getArrayValue()[0] == 1) {
+        if(showQuadTreeCheckBox.getArrayValue()[1] == 1) {
             queryCircle.show();
         }
         
@@ -67,13 +71,25 @@ void draw() {
     }
 
     qtree.show();
+    }
+    
 }
 
 void mousePressed() {
 
-    // Ajout de 5 boids a chaque click
-    for(int i = 0; i< 5; i++) {
-        flock.addBoid(new Boid(mouseX + random(-10, 10), mouseY + random(-10, 10)));
+    if((showSettings && mouseX > 150) || (!showSettings)) {
+        // Ajout de 5 boids a chaque click
+        if(boidObstacleRadioButton.getArrayValue()[0] == 1) {
+            for(int i = 0; i< boidNumberSlider.getValue(); i++) {
+                flock.addBoid(new Boid(mouseX + random(-10, 10), mouseY + random(-10, 10)));
+            }
+        }
+        
+        if(boidObstacleRadioButton.getArrayValue()[1] == 1) {
+            flock.addObstacle(new Obstacle(mouseX, mouseY, floor(obstacleRadiusSlider.getValue())));   
+        }
     }
+    
+    
 }
 

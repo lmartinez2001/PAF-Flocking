@@ -17,8 +17,8 @@ class Boid implements IDrawable {
 
     // OBSTACLE TEMP
     int obstacleRadius = 30;
-    float anticipationFactor = 2;
-    float maxObstacleForce = 15;
+    float anticipationFactor = 1.7;
+    float maxObstacleForce = 5;
 
 
     Boid(float x, float y) {
@@ -205,8 +205,6 @@ class Boid implements IDrawable {
 
             steering.setMag(this.maxSpeed).sub(this.velocity).limit(this.maxForce);
         }
-
-        showFovIfChecked(showAlignFovCheckBox, perceptionRadius);
         return steering;
         
     }
@@ -249,8 +247,6 @@ class Boid implements IDrawable {
 
         // steering.add(other.position);
         // steering.div(neighborCount).sub(this.position).setMag(this.maxSpeed).sub(this.velocity).limit(this.maxForce);
-
-        showFovIfChecked(showCohesionFovCheckBox, perceptionRadius);
         
         return steering;
 
@@ -294,8 +290,6 @@ class Boid implements IDrawable {
             steering.limit(this.maxForce); // Limite la force pour qu'il ne tourne pas instantanément*/
             steering.setMag(this.maxSpeed).sub(this.velocity).limit(this.maxForce);
         }
-
-        showFovIfChecked(showSeparationFovCheckBox, perceptionRadius);
         return steering;
         
     }
@@ -308,7 +302,7 @@ class Boid implements IDrawable {
 
         boolean obstacleVisible = false;
 
-        float numPoints = 170;
+        float numPoints = 80;
         float step = 1/numPoints;
         float theta = 0;
         float i = 0;
@@ -337,6 +331,8 @@ class Boid implements IDrawable {
 
             if( i <= 0) i = -i + 1;
             else i = -i;
+
+            if(abs(i) == numPoints) break;
         } while (d < anticipationFactor * obstacle.radius);
 
         if(theta != 0) {
@@ -372,20 +368,21 @@ class Boid implements IDrawable {
         triangle(-this.size, -this.size/2, -this.size, this.size/2, this.size, 0); // Coordonnées des points du triangle
         pop();
         
+        if(showSightAngleCheckBox.getArrayValue()[0] == 1) {
+            showFov();
+        }
 
     }
 
 
-    void showFovIfChecked(CheckBox controller, float perceptionRadius) {
-        if(controller.getArrayValue()[0] == 1) {
+    void showFov() {
             float currentHeading = this.velocity.heading();
             pushMatrix();
             translate(this.position.x, this.position.y);
             rotate(currentHeading);
             fill(95, 211, 189, 90);
-            arc(0, 0, perceptionRadius*2, perceptionRadius*2, -this.sightAngle, this.sightAngle);
+            arc(0, 0, 15*2, 15*2, -this.sightAngle, this.sightAngle);
             popMatrix();
-        }
     }
 
     float distSquarred(float x, float y) {

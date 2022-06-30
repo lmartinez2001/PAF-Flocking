@@ -19,7 +19,7 @@ class Circle implements IDrawable {
     void show() {
         noFill();
         strokeWeight(2);
-        stroke(0, 255, 0);
+        stroke(95, 211, 189);
         circle(x, y, r*2);
     }
     
