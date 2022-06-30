@@ -26,6 +26,7 @@
 
 ### Prérequis
 <div id="prerequisites"></div>
+
 * [Processing](https://processing.org/) : Il faut d'abord installer l'environnement de développement et l'IDE Processing pour pouvoir exécuter les fichier PDE
   
 * [ControlP5](https://github.com/sojamo/controlp5)
@@ -33,12 +34,14 @@
 
 * [Python3](https://www.python.org/downloads/)
 
+<br/>
+
 ### Installation
 <div id="installation"></div>
 
 1. Cloner le dépôt
 ```sh
-   git clone LIEN DU GIT
+   git clone git@gitlab.enst.fr:PAF/2122/gr16-1.git
    ```
 
 2. Ouvrir le projet avec l'IDE processing ou vscode (Dans ce cas le chemin d'accès à l'IDE Processing doit être renseigné dans les variables d'environnement)
@@ -85,6 +88,12 @@ Tous les agents ont la même vitesse maximale. Elle a cinq valeurs possibles, r�
 ![Réglage du champ de vision][visibility-img]
 
 Le champ de vision des agents est modifiable avec le slider `VISIBILITÉ`. Il est fixé par défaut à 100% (vision à 360°).
+
+<div align="center">
+    <img src="readme_images/sight-displayed.png" alt="Logo">
+    <br/>
+    <em>Champ de vision des agents</em>
+</div>
 
 <br/>
 
